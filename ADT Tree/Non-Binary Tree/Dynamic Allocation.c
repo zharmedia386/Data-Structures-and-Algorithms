@@ -78,19 +78,19 @@ void delSibling(address *Root){
 }
 
 void findChild(address Root){
-  printf("\n %s\n",Root->Child);
+  printf(" - Child dari %s adalah %s\n",Root,Root->Child);
 }
 
 void findParent(address Root){
-  printf(" %s\n",Root->Parent);
+  printf(" - Parent dari %s adalah%s\n",Root,Root->Parent);
 }
 
 void findGrandParent(address Root){
-  printf(" %s\n",Root->Parent->Parent);
+  printf(" - GrandParent dari %s adalah %s\n",Root,Root->Parent->Parent);
 }
 
 void findSibling(address Root){
-  printf(" %s\n",Root->NextSibling);
+  printf(" - Sibling dari %s adalah %s\n",Root,Root->NextSibling);
 }
 
 void PrintPreOrder(address Root){
@@ -243,6 +243,9 @@ int main(){
   // PreOrder
   printf(" preOrder Sequence :\n");
   PrintPreOrder(T.Root);
+  
+  // Study Case
+  printf("\n Study Case :\n");
   
   // Mencari Child - Irvan
   findChild(T.Root->Child->Child->NextSibling);
