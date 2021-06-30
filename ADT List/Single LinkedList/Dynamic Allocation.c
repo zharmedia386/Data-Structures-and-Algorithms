@@ -26,6 +26,7 @@ void CreateList(List *L){
   L->First = NULL;
 }
 
+// Alokasi Node Baru
 address Alokasi(Infotype X){
   address P;
   P = (address)malloc(sizeof(Node));
@@ -35,10 +36,12 @@ address Alokasi(Infotype X){
   return P;
 }
 
+// Menambah Node di awal
 void addFirst(List *L, Infotype input){  
   L->First = Alokasi(input);
 }
 
+// Menambah Node di akhir
 void addLast(List *L, Infotype input){
   address last;
   last = L->First;
@@ -51,6 +54,12 @@ void addLast(List *L, Infotype input){
   last->next = Alokasi(input);
 }
 
+// Menambah node diantara Node
+void addAfter(List *L, Infotype input){
+  
+}
+
+// Input Element
 void ReadElement(Infotype *input){
   printf("Nama : ");
   scanf("%[^\n]c",input->Nama);
@@ -61,6 +70,7 @@ void ReadElement(Infotype *input){
   printf("\n");
 }
 
+// Menampilkan isi seluruh node
 void PrintElement(List L){
   address P = L.First;
   int i = 1;
