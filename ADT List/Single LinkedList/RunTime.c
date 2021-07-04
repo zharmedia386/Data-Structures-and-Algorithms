@@ -2,95 +2,117 @@
 #include <stdlib.h>
 #include <string.h>
 #include <malloc.h>
+#include <stdbool.h>
 
-// Kamus Data
-typedef struct{
-  char Nama[50];
-  char NIM[50];
-}Mahasiswa;
-
-typedef Mahasiswa Infotype;
-typedef struct elmt *address;
-
-typedef struct elmt{
-  Infotype data;
-  address next;
-}Node;
+#define SIZE 5
 
 typedef struct{
-  address First;
+  int First;
+  int Next;
+  int data[SIZE];
 }List;
 
-// Algoritma
 void CreateList(List *L){
-  L->First = NULL;
+  L->First = -1;
 }
 
-address Alokasi(Infotype X){
-  address P;
-  P = (address)malloc(sizeof(Node));
-  strcpy(P->data.Nama,X.Nama);
-  strcpy(P->data.NIM,X.NIM);
-  P->next = NULL;
-  return P;
+bool isEmpty(List L){
+  if(L.First == -1)
+    return true;
+  else
+    return false;
 }
 
-void addFirst(List *L, Infotype input){  
-  L->First = Alokasi(input);
+bool isFull(List L){
+  if(L.First == 4)
+    return true;
+  else
+    return false;
 }
 
-void addLast(List *L, Infotype input){
-  address last;
-  last = L->First;
-
-  // Menuju ke node last
-  while(last->next != NULL){
-    last = last->next;
+int CountElement(List L)
+{
+  int result = 0;
+  if (L.First != -1)
+  {
+    int temp = L.First;
+    while (temp != -1)
+    {
+      result = result + 1;
+      temp = L.data[temp]++;
+    }
   }
 
-  last->next = Alokasi(input);
+  return result;
 }
 
-void ReadElement(Infotype *input){
-  printf("Nama : ");
-  scanf("%[^\n]c",input->Nama);
-  fflush(stdin);
-  printf("NIM  : ");
-  scanf("%[^\n]c",input->NIM);
-  fflush(stdin);
-  printf("\n");
+// Menambah node di Node Pertama 
+void addFirst(List *L, int value){
+  if(isFull(*L))
+    printf("List is Full!!\n");
+  else{
+    int temp = L->First; // Indeks di depan L->First
+    temp++;
+    L->data[temp] = value;
+    printf("Penambahan Node Berhasil! %d sudah ditambahkan\n",L->data[temp]);
+  }
+}
+
+// Menambah Node Terakhir
+void addLast(List *L, int value){
+  // if(isFull(*L))
+  //   printf("List is Full!!\n");
+  // else{
+    int temp = 0;
+    int n = CountElement(*L);
+    while(temp < n){ // Selangkah di depan Node Terakhir
+      temp++; 
+    }
+    L->data[temp] = value;
+    printf("Penambahan Node Berhasil! %d sudah ditambahkan\n",L->data[temp]);
+  // }
 }
 
 void PrintElement(List L){
-  address P = L.First;
-  int i = 1;
-  while(P != NULL){
-    printf("Node ke-%d\n",i);
-    printf("Nama : %s\n",P->data.Nama);
-    printf("NIM  : %s\n\n",P->data.NIM);
-    P = P->next;
-    i++;
-  }
+  // if(isEmpty(L))
+  //   printf("List is Empty!!\n");
+  // else{
+    int temp = 0;
+    int i = 0;
+    int n = CountElement(L);
+    printf("List Elements :\n");
+    while(temp < n){
+      printf("%d ",L.data[i]);
+      temp++; 
+      i++;
+    }
+  // }
 }
 
 int main(){
-  Infotype data;
   List L;
 
-  // Membuat List Pertama
+  // Membuat List Baru
   CreateList(&L);
+
+  // Menambah Node Baru pada List 
+  addFirst(&L,1);
   
-  printf("READ ELEMENT\n");
-  // Tambah Node Awal
-  ReadElement(&data);
-  addFirst(&L,data);
+  // Menambah Node Baru pada List 
+  addLast(&L,2);
 
-  // Tambah node Akhir
-  ReadElement(&data);
-  addLast(&L,data);
+  // Menambah Node Baru pada List 
+  addLast(&L,3);
 
-  // Print Seluruh node
-  printf("PRINT ELEMENT\n");
+  // Menambah Node Baru pada List 
+  addFirst(&L,4);
+
+  // Menambah Node Baru pada List 
+  addFirst(&L,3);
+
+  // Menghapus Node Baru pada List 
+
+  // Menampilkan isi Seluruh node
   PrintElement(L);
   
   return 0;
