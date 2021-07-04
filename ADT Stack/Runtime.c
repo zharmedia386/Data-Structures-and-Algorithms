@@ -1,110 +1,101 @@
+/* ADT Stack :
+Push -> Menambah Elemen di Top
+Pop -> Menghapus Elemen di Top
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <malloc.h>
 #include <stdbool.h>
 
-typedef char Infotype;
-typedef struct elmt *address;
-
-typedef struct elmt{
-  Infotype data;
-  address next;
-}Node;
+#define SIZE 5
 
 typedef struct{
-  address Top;
+  int Top;
+  int data[SIZE];
 }Stack;
 
 void CreateStack(Stack *S){
-  S->Top = NULL;
-}
-
-address Alokasi(Infotype X){
-  address P = (address)malloc(sizeof(Node));
-  P->data = X;
-  return P;
+  S->Top = -1;
 }
 
 bool isEmpty(Stack S){
-  if(!S.Top){
-    return false;
-  }
-  else{
+  if(S.Top == -1)
     return true;
-  }
+  else
+    return false;
 }
 
-int CountElement(Stack S){
-  int result = 0;
-  address P = S.Top;
-  if(!S.Top){
-    while(!S.Top->next){
-      P = P->next;
-      result++;
-    }
-  }
-  return result;
+bool isFull(Stack S){
+  if(S.Top == 4)
+    return true;
+  else
+    return false;
 }
 
-void Push(Stack *S, Infotype input){
-  address P = Alokasi(input);
-  P->next = S->Top;
-  S->Top = P;
+void Push(Stack *S,int value){
+  if(isFull(*S))
+    printf("Stack is Full!!\n");
+  else{
+    S->Top++;
+    S->data[S->Top] = value;
+    printf("Push Berhasil!! %d sudah ditambahkan\n",S->data[S->Top]);
+  }
 }
 
 void Pop(Stack *S){
-  address P = S->Top;
-  printf("\nNode '%c' sudah dihapus\n",P->data);
-  S->Top = S->Top->next;
-  P->next = NULL;
-  free(P);
-}
-
-void ReadElement(Infotype *input){
-  printf("Isi Node : ");
-  scanf("%c",input);
-  fflush(stdin);
+  if(isEmpty(*S))
+    printf("Stack is Empty!!\n");
+  else{
+    printf("\n\nPop Berhasil!! %d sudah dihapus\n",S->data[S->Top]);
+    S->Top--;
+  }
 }
 
 void PrintElement(Stack S){
-  printf("PRINT ELEMENT\n");
-  int i = 1;
-  while(S.Top != NULL){
-    printf("Huruf ke-%d : %c\n",i,S.Top->data);
-    S.Top = S.Top->next;
-    i++;
+  if(isEmpty(S))
+    printf("Stack is Empty!!\n");
+  else{
+    int i;
+    printf("\nQueue Elements :\n");
+    for(i = S.Top; i >= 0; i--)
+      printf("%d ",S.data[i]);
   }
 }
 
 int main(){
   Stack S;
-  Infotype data;
 
   // Membuat Stack Baru
   CreateStack(&S);
 
-  printf("READ ELEMENT\n");
+  // Node Kosong 
+  PrintElement(S);
 
-  // Menambah Node pada Stack - Operasi Push
-  ReadElement(&data);
-  Push(&S,data);
+  // Menambah Node Baru pada Stack - Push
+  Push(&S,1);
 
-  // Menambah Node pada Stack - Operasi Push
-  ReadElement(&data);
-  Push(&S,data);
+  // Menambah Node Baru pada Stack - Push
+  Push(&S,2);
 
-  // Menambah Node pada Stack - Operasi Push
-  ReadElement(&data);
-  Push(&S,data);
+  // Menambah Node Baru pada Stack - Push
+  Push(&S,3);
 
-  // Menghapus Node pada Stack - Operasi Pop
+  // Menambah Node Baru pada Stack - Push
+  Push(&S,4);
+
+  // Menambah Node Baru pada Stack - Push
+  Push(&S,5);
+
+  // Menampilkan Seluruh isi node pada Stack
+  PrintElement(S);
+
+  // Menghapus Node pada Stack - Pop
   Pop(&S);
 
-  printf("\n");
-
-  // Menampilkan Seluruh Isi Node ke Layar
+  // Menampilkan Seluruh isi node pada Stack
   PrintElement(S);
-  
+
   return 0;
 }

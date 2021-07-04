@@ -1,120 +1,82 @@
-/* Antrian Masuk Ruangan */
-#include <stdlib.h>
+/* ATURAN FIFO(First In First Out)
+EnQueue(Menambah Node) = Rear
+DeQueue(Menghapus Node) = Front
+*/
+
 #include <stdio.h>
-#include <stdbool.h>
-#include <malloc.h>
+#include <stdlib.h>
 #include <string.h>
 
-// Kamus data
+#define SIZE 5
+
+// Kamus Data
 typedef struct{
-  char nama[20];
-}Pelanggan;
-
-typedef Pelanggan Infotype;
-typedef struct elmt *address;
-
-typedef struct elmt{
-  Infotype data;
-  address Next;
-}Node;
-
-typedef struct{
-  address Front;
-  address Rear;
+  int Front;
+  int Rear;
+  int data[SIZE];
 }Queue;
 
 // Algoritma
-void CreateQueue(Queue *Q){
-  Q->Front = NULL;
-  Q->Rear = NULL;
-}
-
-address Alokasi(Infotype X){
-  address P = (address)malloc(sizeof(Node));
-  strcpy(P->data.nama,X.nama);
-  P->Next = NULL;
-  return P;
-}
-
-bool isEmpty(Queue Q){
-  if(Q.Front == NULL)
-    return true;
-  else
-    return false;
-}
-
-int CountElement(Queue Q){
-  int result = 0;
-  address P = Q.Front;
-  while(Q.Front != NULL){
-    Q.Front = Q.Front->Next;
-    result++;
+void EnQueue(Queue *Q,int value){ // Menambah Node Baru di Rear
+  if(Q->Rear == SIZE-1){  // If Queue is Full
+    printf("Queue is Full!!\n");
   }
-  return result;
+  else { 
+    if(Q->Front == -1) // Jika Queue Kosong, Front == Rear == -1
+      Q->Front = 0;
+    Q->Rear++; // Pindah ke Elemen Selanjutnya di Rear (FIFO)
+    Q->data[Q->Rear] = value; 
+    printf("EnQueue Berhasil!! %d sudah ditambahkan\n",value);
+  }
 }
 
-void EnQueue(Queue *Q, Infotype input){
-  address P = Alokasi(input);
-  if(isEmpty(*Q) == true)
-    Q->Front = P;
-  else
-    Q->Rear->Next = P;
-  Q->Rear = P;
-}
-
-void DeQueue(Queue *Q){
-  address P = Q->Front;
-  Q->Front = Q->Front->Next;
-  P->Next = NULL;
-  free(P);
-}
-
-void ReadElement(Infotype *input){
-  fflush(stdin);
-  printf("Nama Pelanngan : ");
-  scanf("%[^\n]c",input->nama);
-  
-  fflush(stdin);
+void DeQueue(Queue *Q){ // Menghapus Node di Front
+  if(Q->Front == -1){ // Jika Queue Kosong
+    printf("Queue is Empty!!\n");
+  }
+  else{
+    printf("DeQueue Berhasil!! %d sudah dihapus\n",Q->data[Q->Front]);
+    Q->Front++; // Pindah ke elemen selanjutnya
+    if(Q->Front == Q->Rear) // Jika Elemen Terakhir
+      Q->Front = Q->Rear = -1;
+  }
 }
 
 void PrintElement(Queue Q){
-  address P = Q.Front;
-  int i = 1;
-  printf("PRINT ELEMENT\n");
-  while(P != NULL){
-    printf("Pelanggan ke-%d : %s\n",i,P->data.nama);
-    P = P->Next;
-    i++;
+  if(Q.Rear == -1){
+    printf("Queue is Empty!!\n");
+  }
+  else{
+    int i;
+    printf("Queue Elements :\n");
+    for(i = Q.Front; i <= Q.Rear ; i++)
+      printf("%d ",Q.data[i]);
+    printf("\n");
   }
 }
 
 int main(){
   Queue Q;
-  Infotype data;
-
-  // Membuat Antrian Baru
-  CreateQueue(&Q);
-
-  printf("READ ELEMENT\n");
-
-  // Menambah Antrian Baru di Rear
-  ReadElement(&data);
-  EnQueue(&Q,data);
-
-  // Menambah Antrian Baru di Rear
-  ReadElement(&data);
-  EnQueue(&Q,data);
-
-  // Menambah Antrian Baru di Rear
-  ReadElement(&data);
-  EnQueue(&Q,data);
-
-  // Menghapus Antrian di Front
+  Q.Front = -1; Q.Rear = -1;
+  
+  //DeQueue is not possible on empty queue
   DeQueue(&Q);
 
-  printf("\n");
-  
-  // Menampilkan Seluruh Isi Antrian Baru
+  EnQueue(&Q,1);
+  EnQueue(&Q,2);
+  EnQueue(&Q,3);
+  EnQueue(&Q,4);
+  EnQueue(&Q,5);
+
+  // 6th element can't be added to because the queue is full
+  EnQueue(&Q,6);
+
+  PrintElement(Q);
+
+  //DeQueue removes element entered first i.e. 1
+  DeQueue(&Q);
+
+  //Now we have just 4 elements
   PrintElement(Q);
 
   return 0;
