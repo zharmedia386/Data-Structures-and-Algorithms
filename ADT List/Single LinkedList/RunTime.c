@@ -80,6 +80,7 @@ void PrintElement(List L){
     int temp = 0;
     int i = 0;
     int n = CountElement(L);
+    printf("%d adasd",n);
     printf("List Elements :\n");
     while(temp < n){
       printf("%d ",L.data[i]);
@@ -99,10 +100,10 @@ int main(){
   addFirst(&L,1);
   
   // Menambah Node Baru pada List 
-  addLast(&L,2);
+  // addLast(&L,2);
 
-  // Menambah Node Baru pada List 
-  addLast(&L,3);
+  // // Menambah Node Baru pada List 
+  // addLast(&L,3);
 
   // Menambah Node Baru pada List 
   addFirst(&L,4);
