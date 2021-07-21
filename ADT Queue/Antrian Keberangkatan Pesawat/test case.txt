@@ -1,0 +1,35 @@
+Test Case 1:
+Yujeng
+2
+3
+
+Marsha
+3
+1
+
+Chensing
+20
+4
+
+Rahul
+24
+2
+
+
+
+Test Case 2:
+Chandra
+0
+1
+
+Isman
+8
+0
+
+Weli
+15 
+2
+
+Cici
+20
+3

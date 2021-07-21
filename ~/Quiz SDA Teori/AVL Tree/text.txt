@@ -1,0 +1,5 @@
+Susunlah binary search tree yang balance melalui Algoritma AVL, dengan urutan insert sebagai berikut :
+
+150, 155, 160, 115, 110, 140, 120, 145, 130, 147, 170, 180.
+
+Tampilkan jawaban anda per langkah proses !

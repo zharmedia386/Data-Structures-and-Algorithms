@@ -1,0 +1,42 @@
+Bahasa C :
+
+typedef struct
+{
+  char Nama[20];
+  char Nilai[20];
+} Mahasiswa;
+
+typedef Mahasiswa Infotype;
+typedef struct elmt *address;
+typedef struct elmt
+{
+  Infotype data;
+  address next;
+} elemen;
+
+typedef struct
+{
+  address first;
+} List;
+
+
+
+Pseudoe Code :
+
+record Mahasiswa<
+ Nama : array of character[20]
+ Nilai : array of character[20]
+>
+
+record <Infotype of Mahasiswa>
+
+record <*address of elmt>
+
+record elemen<
+ Infotype : data 
+ next : address of elmt
+>
+
+record List<
+ first : address of elmt
+>

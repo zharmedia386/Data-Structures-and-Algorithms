@@ -1,0 +1,52 @@
+Traversal Preorder :
+
+K
+
+E
+
+F
+
+B
+
+A
+
+C
+
+G	H	D		
+
+
+Jumlah Anak :
+
+4
+
+0
+
+2
+
+1
+
+0	
+0
+
+0
+
+1
+
+0
+
+
+
+
+ 
+
+Ditanyakan :
+
+Degree (K)
+Depth (C)
+Order (F)
+Width (K)
+Height (K)
+Tuliskan Hasil traversal Post Order dan Level Order nya
+Definisikan struktur data yang dapat merepresentasikan tree di atas!
+Berdasarkan jawaban no 7, susunlah algoritma untuk traversal inorder !
+Transformasikan Non binary tree di atas, menjadi Binary tree yang sesuai
