@@ -12,18 +12,19 @@ int main(){
   insertNode(&P,createNode(14));
   insertNode(&P,createNode(15));
 
-  // Menampilkan secara PreOrder, InOrder, dan PostOrder
-  printf("PreOrder : ");
-  preOrder(P);
-  
-  printf("\nInOrder : ");
-  inOrder(P);
-
-  printf("\npostOrder : ");
-  postOrder(P);
-  printf("\n");
-
   while(true){
+  	// Menampilkan secara PreOrder, InOrder, dan PostOrder
+  	system("cls");
+ 	printf("PreOrder : ");
+ 	preOrder(P);
+  
+ 	printf("\nInOrder : ");
+ 	inOrder(P);
+
+ 	printf("\npostOrder : ");
+	postOrder(P);
+  	printf("\n");
+  
     int searchNum = 0;
     printf("\nNode yang ingin dicari : ");
     scanf("%d",&searchNum);
